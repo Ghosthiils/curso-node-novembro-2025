@@ -1,20 +1,26 @@
 const express = require("express");
 const app = express();
+app.use(express.json());
 
-app.get("/", function (req, res) {
-  res.send("hello world");
-});
 
-app.get("/pt", function (req, res) {
-  res.send("ola mundo");
-});
+const herois = ["Mulher Maravilha", "Superman", "Batman"]
 
-app.get("/es", function (req, res) {
-  res.send("Hola");
-});
+app.get('/herois', function (req, res) {
+  res.send(herois)
+})
 
-app.get("/en", function (req, res) {
-  res.send("hello");
-});
+app.get('/herois/:id', function (req, res) {
+  const id = req.params.id
+  res.send(herois[id-1])
+})
+
+app.post('/herois', function(req, res){
+  let novoHeroi = req.body.nome
+  herois.push(novoHeroi)
+  res.send("ok")
+})
+
+
+
 
 app.listen(3000);
